@@ -30,13 +30,28 @@ function HealthcareDashboard() {
 
   const loadData = async () => {
     try {
-      // Use fetch for static files in Vercel deployment
+      // Use fetch for static files (served from public/data/)
       const [patientsRes, appointmentsRes, diagnosesRes, medicationsRes, labRes] = await Promise.all([
-        fetch('/data/patients.csv').then(r => r.text()),
-        fetch('/data/appointments.csv').then(r => r.text()),
-        fetch('/data/diagnoses.csv').then(r => r.text()),
-        fetch('/data/medications.csv').then(r => r.text()),
-        fetch('/data/lab_results.csv').then(r => r.text())
+        fetch('/data/patients.csv').then(r => {
+          if (!r.ok) throw new Error(`Failed to load patients.csv: ${r.status}`);
+          return r.text();
+        }),
+        fetch('/data/appointments.csv').then(r => {
+          if (!r.ok) throw new Error(`Failed to load appointments.csv: ${r.status}`);
+          return r.text();
+        }),
+        fetch('/data/diagnoses.csv').then(r => {
+          if (!r.ok) throw new Error(`Failed to load diagnoses.csv: ${r.status}`);
+          return r.text();
+        }),
+        fetch('/data/medications.csv').then(r => {
+          if (!r.ok) throw new Error(`Failed to load medications.csv: ${r.status}`);
+          return r.text();
+        }),
+        fetch('/data/lab_results.csv').then(r => {
+          if (!r.ok) throw new Error(`Failed to load lab_results.csv: ${r.status}`);
+          return r.text();
+        })
       ]);
 
       const parseCSV = (csvText) => {
@@ -80,6 +95,8 @@ function HealthcareDashboard() {
       setLoading(false);
     } catch (error) {
       console.error('Error loading data:', error);
+      console.error('Error details:', error.message);
+      // Fall back to mock data if CSV files can't be loaded
       setMockData();
     }
   };

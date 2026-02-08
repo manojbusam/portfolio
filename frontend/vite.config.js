@@ -22,10 +22,7 @@ export default defineConfig({
         target: 'http://localhost:3001',
         changeOrigin: true,
       },
-      '/data': {
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      },
+      // /data is served as static files from public/data/, no proxy needed
     },
   },
 });

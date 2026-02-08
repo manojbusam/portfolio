@@ -149,7 +149,7 @@ This project provides a complete Power BI dashboard solution for healthcare anal
 - `ResultStatus` - Result status (Normal, High, Low, Abnormal)
 - `TestDate` - Date of test
 
-## 🎨 Dashboard Features
+## 🎨 Dashboard Feature
 
 ### Key Metrics (KPIs)
 - Total Patients

@@ -1,0 +1,145 @@
+.portfolio-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 32px 40px;
+}
+
+.portfolio-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.portfolio-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.portfolio-header p {
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.data-disclaimer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  font-size: 13px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 16px;
+}
+
+.disclaimer-icon {
+  font-size: 16px;
+}
+
+.disclaimer-text {
+  opacity: 0.95;
+}
+
+.disclaimer-link {
+  color: #93c5fd;
+  text-decoration: underline;
+  font-weight: 500;
+  margin: 0 2px;
+}
+
+.disclaimer-link:hover {
+  color: #dbeafe;
+}
+
+.dashboard-selector {
+  display: flex;
+  gap: 12px;
+  padding: 20px 40px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  overflow-x: auto;
+}
+
+.dashboard-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.dashboard-tab:hover::before {
+  left: 100%;
+}
+
+.dashboard-tab:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.15);
+}
+
+.dashboard-tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+.tab-icon {
+  font-size: 18px;
+}
+
+.dashboard-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .portfolio-header {
+    padding: 24px 20px;
+  }
+
+  .dashboard-selector {
+    padding: 16px 20px;
+  }
+
+  .dashboard-tab {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}

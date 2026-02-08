@@ -1,0 +1,136 @@
+.footer {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+  padding: 48px 40px 24px;
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.footer-section h4 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.footer-logo {
+  font-size: 32px;
+}
+
+.footer-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.footer-tagline {
+  margin: 0;
+  font-size: 14px;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.footer-link {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-link:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
+.footer-disclaimer {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(96, 165, 250, 0.2);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 16px;
+  font-size: 12px;
+  color: #93c5fd;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.footer-badge:hover {
+  background: rgba(96, 165, 250, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+}
+
+.footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 8px 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.footer-note {
+  font-size: 12px !important;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 32px 20px 20px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

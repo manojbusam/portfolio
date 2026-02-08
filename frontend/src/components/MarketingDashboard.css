@@ -1,0 +1,515 @@
+.marketing-dashboard {
+  padding: 0;
+  background: #f8fafc;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.marketing-dashboard .dashboard-header-section {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  padding: 20px 40px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.marketing-dashboard .dashboard-header-section .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.marketing-dashboard .dashboard-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.marketing-dashboard .dashboard-icon {
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.marketing-dashboard .header-content h1 {
+  margin: 0 0 4px 0;
+}
+
+.marketing-dashboard .data-source-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.marketing-dashboard .badge-icon {
+  font-size: 14px;
+}
+
+.marketing-dashboard .badge-text {
+  opacity: 0.95;
+}
+
+.marketing-dashboard .kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding: 0 40px 20px;
+  flex-shrink: 0;
+}
+
+.marketing-dashboard .kpi-card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border-left: 4px solid;
+  display: flex;
+  gap: 12px;
+}
+
+.marketing-dashboard .kpi-card.spend { border-left-color: #6366f1; }
+.marketing-dashboard .kpi-card.revenue { border-left-color: #10b981; }
+.marketing-dashboard .kpi-card.roas { border-left-color: #8b5cf6; }
+.marketing-dashboard .kpi-card.cpa { border-left-color: #f59e0b; }
+.marketing-dashboard .kpi-card.ctr { border-left-color: #3b82f6; }
+.marketing-dashboard .kpi-card.conversion { border-left-color: #ec4899; }
+
+.marketing-dashboard .kpi-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.marketing-dashboard .kpi-card.spend .kpi-icon-wrapper { background: #eef2ff; }
+.marketing-dashboard .kpi-card.revenue .kpi-icon-wrapper { background: #d1fae5; }
+.marketing-dashboard .kpi-card.roas .kpi-icon-wrapper { background: #ede9fe; }
+.marketing-dashboard .kpi-card.cpa .kpi-icon-wrapper { background: #fef3c7; }
+.marketing-dashboard .kpi-card.ctr .kpi-icon-wrapper { background: #dbeafe; }
+.marketing-dashboard .kpi-card.conversion .kpi-icon-wrapper { background: #fce7f3; }
+
+.marketing-dashboard .kpi-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+.marketing-dashboard .kpi-card.spend .kpi-icon { color: #6366f1; }
+.marketing-dashboard .kpi-card.revenue .kpi-icon { color: #10b981; }
+.marketing-dashboard .kpi-card.roas .kpi-icon { color: #8b5cf6; }
+.marketing-dashboard .kpi-card.cpa .kpi-icon { color: #f59e0b; }
+.marketing-dashboard .kpi-card.ctr .kpi-icon { color: #3b82f6; }
+.marketing-dashboard .kpi-card.conversion .kpi-icon { color: #ec4899; }
+
+.marketing-dashboard .kpi-label {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.marketing-dashboard .kpi-value {
+  margin: 0 0 4px 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+.marketing-dashboard .kpi-change {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.marketing-dashboard .kpi-change.positive {
+  color: #10b981;
+}
+
+.marketing-dashboard .tabs-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 40px 24px;
+}
+
+.marketing-dashboard .tabs-header {
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.marketing-dashboard .tab-button {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.marketing-dashboard .tab-button.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+}
+
+.marketing-dashboard .charts-grid-overview {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  height: 100%;
+}
+
+.marketing-dashboard .chart-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.campaign-chart-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.campaign-item {
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.campaign-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.campaign-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.campaign-roas {
+  font-size: 16px;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.campaign-metrics {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.metric-row {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.metric-label {
+  color: #64748b;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.revenue-bar-container {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.revenue-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.campaign-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.channel-chart-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.channel-item {
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.channel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.channel-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.channel-roas {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.roas-bar-container {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.roas-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.channel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Attribution Tab */
+.attribution-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+}
+
+.attribution-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.attr-kpi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.attr-label {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.attr-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.attribution-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.attr-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.attr-touchpoint {
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.attr-percentage {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.conversion-path {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.path-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 10px;
+  min-width: 120px;
+}
+
+.path-step {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.path-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.path-arrow {
+  font-size: 24px;
+  color: #8b5cf6;
+  font-weight: 700;
+}
+
+.conversion-rate {
+  padding: 16px;
+  background: #ede9fe;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6d28d9;
+}
+
+.tooltip {
+  position: fixed;
+  background: rgba(30, 41, 59, 0.95);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  z-index: 10000;
+  pointer-events: none;
+  max-width: 320px;
+  white-space: pre-line;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  backdrop-filter: blur(8px);
+}
+
+.chart-description {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.6;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.chart-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.insight-text {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+  display: block;
+}
+
+.info-icon-large {
+  font-size: 18px;
+  cursor: help;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.info-icon-large:hover {
+  opacity: 1;
+}
+
+@media (max-width: 1600px) {
+  .marketing-dashboard .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .marketing-dashboard .charts-grid-overview {
+    grid-template-columns: 1fr;
+  }
+}

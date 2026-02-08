@@ -1,0 +1,278 @@
+// ============================================
+// Healthcare Dashboard - DAX Measures
+// Copy these measures into Power BI Desktop
+// ============================================
+
+// ============================================
+// APPOINTMENT METRICS
+// ============================================
+
+Total Appointments = 
+COUNTROWS(Appointments)
+
+Completed Appointments = 
+CALCULATE(
+    COUNTROWS(Appointments),
+    Appointments[Status] = "Completed"
+)
+
+Cancelled Appointments = 
+CALCULATE(
+    COUNTROWS(Appointments),
+    Appointments[Status] = "Cancelled"
+)
+
+No-Show Rate = 
+DIVIDE(
+    CALCULATE(
+        COUNTROWS(Appointments),
+        Appointments[Status] = "No-show"
+    ),
+    [Total Appointments],
+    0
+) * 100
+
+Appointment Completion Rate = 
+DIVIDE(
+    [Completed Appointments],
+    [Total Appointments],
+    0
+) * 100
+
+Total Revenue = 
+SUM(Appointments[Cost])
+
+Average Appointment Cost = 
+DIVIDE(
+    [Total Revenue],
+    [Completed Appointments],
+    0
+)
+
+Appointments This Month = 
+CALCULATE(
+    [Total Appointments],
+    FILTER(
+        Appointments,
+        YEAR(Appointments[AppointmentDate]) = YEAR(TODAY()) &&
+        MONTH(Appointments[AppointmentDate]) = MONTH(TODAY())
+    )
+)
+
+Appointments Last Month = 
+CALCULATE(
+    [Total Appointments],
+    FILTER(
+        Appointments,
+        YEAR(Appointments[AppointmentDate]) = YEAR(EDATE(TODAY(), -1)) &&
+        MONTH(Appointments[AppointmentDate]) = MONTH(EDATE(TODAY(), -1))
+    )
+)
+
+Month-over-Month Growth = 
+DIVIDE(
+    [Appointments This Month] - [Appointments Last Month],
+    [Appointments Last Month],
+    0
+) * 100
+
+// ============================================
+// PATIENT METRICS
+// ============================================
+
+Total Patients = 
+DISTINCTCOUNT(Patients[PatientID])
+
+New Patients This Month = 
+CALCULATE(
+    DISTINCTCOUNT(Patients[PatientID]),
+    FILTER(
+        Patients,
+        YEAR(Patients[RegistrationDate]) = YEAR(TODAY()) &&
+        MONTH(Patients[RegistrationDate]) = MONTH(TODAY())
+    )
+)
+
+Active Patients (Last 90 Days) = 
+CALCULATE(
+    DISTINCTCOUNT(Appointments[PatientID]),
+    FILTER(
+        Appointments,
+        Appointments[AppointmentDate] >= TODAY() - 90 &&
+        Appointments[Status] = "Completed"
+    )
+)
+
+Average Age = 
+AVERAGE(Patients[Age])
+
+Patients by Insurance Type = 
+CALCULATE(
+    DISTINCTCOUNT(Patients[PatientID]),
+    VALUES(Patients[InsuranceType])
+)
+
+// ============================================
+// DEPARTMENT METRICS
+// ============================================
+
+Appointments by Department = 
+CALCULATE(
+    COUNTROWS(Appointments),
+    VALUES(Appointments[Department])
+)
+
+Top Department = 
+TOPN(
+    1,
+    SUMMARIZE(
+        Appointments,
+        Appointments[Department],
+        "AppointmentCount", COUNTROWS(Appointments)
+    ),
+    [AppointmentCount],
+    DESC
+)
+
+// ============================================
+// DIAGNOSIS METRICS
+// ============================================
+
+Total Diagnoses = 
+COUNTROWS(Diagnoses)
+
+Most Common Diagnosis = 
+TOPN(
+    1,
+    SUMMARIZE(
+        Diagnoses,
+        Diagnoses[Diagnosis],
+        "DiagnosisCount", COUNTROWS(Diagnoses)
+    ),
+    [DiagnosisCount],
+    DESC
+)
+
+Critical Cases = 
+CALCULATE(
+    COUNTROWS(Diagnoses),
+    Diagnoses[Severity] = "Critical"
+)
+
+// ============================================
+// LAB RESULTS METRICS
+// ============================================
+
+Total Lab Tests = 
+COUNTROWS(LabResults)
+
+Abnormal Results = 
+CALCULATE(
+    COUNTROWS(LabResults),
+    LabResults[ResultStatus] <> "Normal"
+)
+
+Abnormal Result Rate = 
+DIVIDE(
+    [Abnormal Results],
+    [Total Lab Tests],
+    0
+) * 100
+
+Average Blood Glucose = 
+CALCULATE(
+    AVERAGE(LabResults[TestValue]),
+    LabResults[TestName] = "Blood Glucose"
+)
+
+Average Cholesterol = 
+CALCULATE(
+    AVERAGE(LabResults[TestValue]),
+    LabResults[TestName] = "Cholesterol"
+)
+
+// ============================================
+// TIME-BASED METRICS
+// ============================================
+
+Appointments Today = 
+CALCULATE(
+    COUNTROWS(Appointments),
+    Appointments[AppointmentDate] = TODAY()
+)
+
+Appointments This Week = 
+CALCULATE(
+    COUNTROWS(Appointments),
+    FILTER(
+        Appointments,
+        Appointments[AppointmentDate] >= TODAY() - WEEKDAY(TODAY(), 2) + 1 &&
+        Appointments[AppointmentDate] <= TODAY() - WEEKDAY(TODAY(), 2) + 7
+    )
+)
+
+Appointments This Year = 
+CALCULATE(
+    COUNTROWS(Appointments),
+    YEAR(Appointments[AppointmentDate]) = YEAR(TODAY())
+)
+
+// ============================================
+// EFFICIENCY METRICS
+// ============================================
+
+Average Appointment Duration = 
+AVERAGE(Appointments[Duration])
+
+Total Appointment Hours = 
+SUM(Appointments[Duration]) / 60
+
+Peak Appointment Hour = 
+TOPN(
+    1,
+    SUMMARIZE(
+        Appointments,
+        HOUR(Appointments[AppointmentTime]),
+        "AppointmentCount", COUNTROWS(Appointments)
+    ),
+    [AppointmentCount],
+    DESC
+)
+
+// ============================================
+// MEDICATION METRICS
+// ============================================
+
+Total Prescriptions = 
+COUNTROWS(Medications)
+
+Most Prescribed Medication = 
+TOPN(
+    1,
+    SUMMARIZE(
+        Medications,
+        Medications[MedicationName],
+        "PrescriptionCount", COUNTROWS(Medications)
+    ),
+    [PrescriptionCount],
+    DESC
+)
+
+// ============================================
+// KPI METRICS
+// ============================================
+
+Patient Satisfaction Score = 
+// Note: This would typically come from a survey table
+// Placeholder calculation
+95.5
+
+Average Wait Time (Minutes) = 
+// Note: This would typically come from appointment tracking
+// Placeholder calculation
+15
+
+Readmission Rate = 
+// Note: This would require tracking readmissions
+// Placeholder calculation
+5.2

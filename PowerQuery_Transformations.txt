@@ -1,0 +1,242 @@
+// ============================================
+// Power Query M Scripts for Data Transformation
+// Use these in Power BI Desktop's Power Query Editor
+// ============================================
+
+// ============================================
+// PATIENTS TABLE TRANSFORMATIONS
+// ============================================
+
+// Add Age Group Column
+// In Power Query Editor, add a custom column with this formula:
+= Table.AddColumn(
+    #"Previous Step",
+    "AgeGroup",
+    each
+        if [Age] < 30 then "18-29"
+        else if [Age] < 40 then "30-39"
+        else if [Age] < 50 then "40-49"
+        else if [Age] < 60 then "50-59"
+        else if [Age] < 70 then "60-69"
+        else "70+"
+)
+
+// Add Full Name Column
+= Table.AddColumn(
+    #"Previous Step",
+    "FullName",
+    each [FirstName] & " " & [LastName],
+    type text
+)
+
+// Add Registration Year Column
+= Table.AddColumn(
+    #"Previous Step",
+    "RegistrationYear",
+    each Date.Year([RegistrationDate]),
+    Int64.Type
+)
+
+// ============================================
+// APPOINTMENTS TABLE TRANSFORMATIONS
+// ============================================
+
+// Combine Date and Time into DateTime
+= Table.TransformColumns(
+    #"Previous Step",
+    {
+        {
+            "AppointmentDate",
+            each Date.From(DateTime.FromText([AppointmentDate] & " " & [AppointmentTime])),
+            type date
+        }
+    }
+)
+
+// Add Day of Week Column
+= Table.AddColumn(
+    #"Previous Step",
+    "DayOfWeek",
+    each Date.DayOfWeekName([AppointmentDate]),
+    type text
+)
+
+// Add Month Name Column
+= Table.AddColumn(
+    #"Previous Step",
+    "MonthName",
+    each Date.MonthName([AppointmentDate]),
+    type text
+)
+
+// Add Year Column
+= Table.AddColumn(
+    #"Previous Step",
+    "Year",
+    each Date.Year([AppointmentDate]),
+    Int64.Type
+)
+
+// Add Quarter Column
+= Table.AddColumn(
+    #"Previous Step",
+    "Quarter",
+    each "Q" & Text.From(Date.QuarterOfYear([AppointmentDate])),
+    type text
+)
+
+// Add Is Weekend Column
+= Table.AddColumn(
+    #"Previous Step",
+    "IsWeekend",
+    each Date.DayOfWeek([AppointmentDate]) = Day.Saturday or Date.DayOfWeek([AppointmentDate]) = Day.Sunday,
+    type logical
+)
+
+// Add Hour of Day Column
+= Table.AddColumn(
+    #"Previous Step",
+    "HourOfDay",
+    each Time.Hour(Time.FromText([AppointmentTime])),
+    Int64.Type
+)
+
+// Add Time of Day Category
+= Table.AddColumn(
+    #"Previous Step",
+    "TimeOfDay",
+    each
+        let
+            hour = Time.Hour(Time.FromText([AppointmentTime]))
+        in
+            if hour < 12 then "Morning"
+            else if hour < 17 then "Afternoon"
+            else "Evening",
+    type text
+)
+
+// ============================================
+// DIAGNOSES TABLE TRANSFORMATIONS
+// ============================================
+
+// Add Diagnosis Category (grouping similar diagnoses)
+= Table.AddColumn(
+    #"Previous Step",
+    "DiagnosisCategory",
+    each
+        if Text.Contains([Diagnosis], "Diabetes") then "Endocrine"
+        else if Text.Contains([Diagnosis], "Hypertension") or Text.Contains([Diagnosis], "Cholesterol") then "Cardiovascular"
+        else if Text.Contains([Diagnosis], "Fracture") or Text.Contains([Diagnosis], "Injury") or Text.Contains([Diagnosis], "Pain") then "Musculoskeletal"
+        else if Text.Contains([Diagnosis], "Cold") or Text.Contains([Diagnosis], "Flu") or Text.Contains([Diagnosis], "Bronchitis") or Text.Contains([Diagnosis], "Pneumonia") then "Respiratory"
+        else if Text.Contains([Diagnosis], "Depression") or Text.Contains([Diagnosis], "Anxiety") then "Mental Health"
+        else "Other",
+    type text
+)
+
+// ============================================
+// LAB RESULTS TABLE TRANSFORMATIONS
+// ============================================
+
+// Extract numeric value from TestValue (for Blood Pressure, handle separately)
+= Table.AddColumn(
+    #"Previous Step",
+    "NumericValue",
+    each
+        if [TestName] = "Blood Pressure" then null
+        else if Value.Is(Value.FromText(Text.From([TestValue])), type number) then Number.From([TestValue])
+        else null,
+    type number
+)
+
+// Add Is Abnormal Column
+= Table.AddColumn(
+    #"Previous Step",
+    "IsAbnormal",
+    each [ResultStatus] <> "Normal",
+    type logical
+)
+
+// ============================================
+// RELATIONSHIP PREPARATION
+// ============================================
+
+// Ensure all ID columns are properly typed
+// Apply to all tables with ID columns:
+= Table.TransformColumnTypes(
+    #"Previous Step",
+    {
+        {"PatientID", type text},
+        {"AppointmentID", type text},
+        {"DiagnosisID", type text},
+        {"MedicationID", type text},
+        {"LabResultID", type text}
+    }
+)
+
+// ============================================
+// DATE TABLE CREATION
+// ============================================
+
+// Create a Date Table for better time intelligence
+// In Power Query, create a new blank query and use this:
+
+let
+    StartDate = #date(2020, 1, 1),
+    EndDate = #date(2025, 12, 31),
+    NumberOfDays = Duration.Days(EndDate - StartDate),
+    DateList = List.Dates(StartDate, NumberOfDays + 1, #duration(1, 0, 0, 0)),
+    DateTable = Table.FromList(DateList, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    RenamedColumns = Table.RenameColumns(DateTable, {{"Column1", "Date"}}),
+    ChangedType = Table.TransformColumnTypes(RenamedColumns, {{"Date", type date}}),
+    InsertedYear = Table.AddColumn(ChangedType, "Year", each Date.Year([Date]), Int64.Type),
+    InsertedQuarter = Table.AddColumn(InsertedYear, "Quarter", each Date.QuarterOfYear([Date]), Int64.Type),
+    InsertedMonth = Table.AddColumn(InsertedQuarter, "Month", each Date.Month([Date]), Int64.Type),
+    InsertedMonthName = Table.AddColumn(InsertedMonth, "MonthName", each Date.MonthName([Date]), type text),
+    InsertedDay = Table.AddColumn(InsertedMonthName, "Day", each Date.Day([Date]), Int64.Type),
+    InsertedDayOfWeek = Table.AddColumn(InsertedDay, "DayOfWeek", each Date.DayOfWeek([Date]), Int64.Type),
+    InsertedDayName = Table.AddColumn(InsertedDayOfWeek, "DayName", each Date.DayOfWeekName([Date]), type text),
+    InsertedWeekOfYear = Table.AddColumn(InsertedDayName, "WeekOfYear", each Date.WeekOfYear([Date]), Int64.Type),
+    InsertedIsWeekend = Table.AddColumn(InsertedWeekOfYear, "IsWeekend", each Date.DayOfWeek([Date]) = Day.Saturday or Date.DayOfWeek([Date]) = Day.Sunday, type logical)
+in
+    InsertedIsWeekend
+
+// Mark this table as a Date Table in Power BI:
+// Right-click the Date column > Mark as Date Table
+
+// ============================================
+// DATA CLEANING
+// ============================================
+
+// Remove duplicates
+= Table.Distinct(#"Previous Step")
+
+// Remove rows with null PatientID
+= Table.SelectRows(
+    #"Previous Step",
+    each [PatientID] <> null and [PatientID] <> ""
+)
+
+// Trim text columns
+= Table.TransformColumns(
+    #"Previous Step",
+    {
+        {"FirstName", Text.Trim, type text},
+        {"LastName", Text.Trim, type text},
+        {"LastName", Text.Trim, type text}
+    }
+)
+
+// ============================================
+// CALCULATED COLUMNS FOR VISUALIZATIONS
+// ============================================
+
+// Add Revenue Category (for appointments)
+= Table.AddColumn(
+    #"Previous Step",
+    "RevenueCategory",
+    each
+        if [Cost] < 100 then "Low"
+        else if [Cost] < 250 then "Medium"
+        else "High",
+    type text
+)

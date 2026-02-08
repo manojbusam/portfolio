@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import profilePicture from '../pp.jpeg';
 import './About.css';
 
@@ -83,6 +84,82 @@ function About() {
               <h3>Paid Social Attribution</h3>
               <p>Unlocking the "Black Box" of <strong>Meta Ads Manager</strong>. I bridge the gap between marketing spend and actual revenue through advanced data attribution modeling using <strong>Microsoft Fabric</strong> and <strong>Power BI</strong>.</p>
             </div>
+          </div>
+        </div>
+
+        <div className="about-section">
+          <h2>Live Dashboards</h2>
+          <p className="section-intro">
+            Interactive dashboards demonstrating data visualization and analytics capabilities.
+          </p>
+          <div className="dashboard-showcase">
+            <Link to="/portfolio/healthcare" className="dashboard-card">
+              <div className="dashboard-card-header">
+                <span className="dashboard-icon">🏥</span>
+                <h3>Healthcare Analytics</h3>
+              </div>
+              <p className="dashboard-description">
+                Healthcare operations dashboard tracking patient metrics, appointments, and revenue analytics. 
+                Built with <strong>Power BI</strong> and <strong>DAX</strong> for healthcare data modeling and operational efficiency.
+              </p>
+              <div className="dashboard-tech">
+                <span className="tech-badge">Power BI</span>
+                <span className="tech-badge">DAX</span>
+                <span className="tech-badge">SQL</span>
+              </div>
+              <span className="dashboard-link">View Dashboard →</span>
+            </Link>
+
+            <Link to="/portfolio/finance" className="dashboard-card">
+              <div className="dashboard-card-header">
+                <span className="dashboard-icon">💰</span>
+                <h3>Finance & Risk</h3>
+              </div>
+              <p className="dashboard-description">
+                Financial risk management dashboard analyzing credit risk, market volatility, and portfolio performance. 
+                Built with <strong>Tableau</strong> and <strong>Python</strong> for risk assessment and financial modeling.
+              </p>
+              <div className="dashboard-tech">
+                <span className="tech-badge">Tableau</span>
+                <span className="tech-badge">Python</span>
+                <span className="tech-badge">Risk Analytics</span>
+              </div>
+              <span className="dashboard-link">View Dashboard →</span>
+            </Link>
+
+            <Link to="/portfolio/retail" className="dashboard-card">
+              <div className="dashboard-card-header">
+                <span className="dashboard-icon">📦</span>
+                <h3>Retail & Supply Chain</h3>
+              </div>
+              <p className="dashboard-description">
+                Retail and supply chain analytics monitoring inventory, sales performance, and supplier metrics. 
+                Built with <strong>Microsoft Fabric</strong> and <strong>Power BI</strong> for supply chain optimization.
+              </p>
+              <div className="dashboard-tech">
+                <span className="tech-badge">Microsoft Fabric</span>
+                <span className="tech-badge">Power BI</span>
+                <span className="tech-badge">Supply Chain</span>
+              </div>
+              <span className="dashboard-link">View Dashboard →</span>
+            </Link>
+
+            <Link to="/portfolio/marketing" className="dashboard-card">
+              <div className="dashboard-card-header">
+                <span className="dashboard-icon">📊</span>
+                <h3>Marketing Analytics</h3>
+              </div>
+              <p className="dashboard-description">
+                Marketing performance dashboard tracking campaign effectiveness, conversion funnels, and ROI. 
+                Built with <strong>Meta Ads Manager</strong> and <strong>Power BI</strong> for marketing attribution and analytics.
+              </p>
+              <div className="dashboard-tech">
+                <span className="tech-badge">Meta Ads Manager</span>
+                <span className="tech-badge">Power BI</span>
+                <span className="tech-badge">Attribution</span>
+              </div>
+              <span className="dashboard-link">View Dashboard →</span>
+            </Link>
           </div>
         </div>
 

@@ -13,7 +13,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
     "axios": "^1.6.2",
-    "powerbi-client-react": "^2.0.0"
+    "powerbi-client-react": "^2.0.0",
+    "@vercel/analytics": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

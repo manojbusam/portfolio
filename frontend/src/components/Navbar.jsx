@@ -26,9 +26,9 @@ function Navbar() {
           </Link>
           <Link 
             to="/portfolio" 
-            className={location.pathname === '/portfolio' ? 'active' : ''}
+            className={location.pathname.startsWith('/portfolio') ? 'active' : ''}
           >
-            Portfolio
+            Live Dashboards
           </Link>
         </div>
       </div>

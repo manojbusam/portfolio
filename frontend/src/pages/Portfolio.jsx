@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import HealthcareDashboard from '../components/HealthcareDashboard';
 import FinanceDashboard from '../components/FinanceDashboard';
 import RetailDashboard from '../components/RetailDashboard';
@@ -6,7 +7,23 @@ import MarketingDashboard from '../components/MarketingDashboard';
 import './Portfolio.css';
 
 function Portfolio() {
-  const [activeDashboard, setActiveDashboard] = useState('healthcare');
+  const { dashboardId } = useParams();
+  const navigate = useNavigate();
+  const [activeDashboard, setActiveDashboard] = useState(dashboardId || 'healthcare');
+
+  useEffect(() => {
+    if (dashboardId && dashboardId !== activeDashboard) {
+      setActiveDashboard(dashboardId);
+    } else if (!dashboardId) {
+      // Redirect to default dashboard if no ID in URL
+      navigate('/portfolio/healthcare', { replace: true });
+    }
+  }, [dashboardId, navigate]);
+
+  const handleDashboardChange = (dashboardId) => {
+    setActiveDashboard(dashboardId);
+    navigate(`/portfolio/${dashboardId}`);
+  };
 
   const dashboards = [
     { id: 'healthcare', name: 'Healthcare Analytics', component: HealthcareDashboard, icon: '🏥' },
@@ -32,7 +49,7 @@ function Portfolio() {
           <button
             key={dashboard.id}
             className={`dashboard-tab ${activeDashboard === dashboard.id ? 'active' : ''}`}
-            onClick={() => setActiveDashboard(dashboard.id)}
+            onClick={() => handleDashboardChange(dashboard.id)}
           >
             <span className="tab-icon">{dashboard.icon}</span>
             <span className="tab-name">{dashboard.name}</span>

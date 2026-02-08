@@ -1,42 +1,81 @@
-# ✅ Vercel 401 Error - FIXED
+# 🔧 Vercel Blank Page Fix
 
-## Problem
-The dashboards were trying to fetch CSV files from `/data/` endpoints using `axios`, which was causing 401 Unauthorized errors on Vercel because:
-- No backend server exists on Vercel
-- Static files need to be in the `public/` folder
-- `axios` was trying to make API calls instead of fetching static files
+## Issue
+After connecting to Git, Vercel shows a blank page at https://portfolio-vchinta.vercel.app/
 
-## Solution Applied
+## Root Cause
+Vercel needs to be configured with **Root Directory = `frontend`** in the dashboard settings.
 
-1. **Moved CSV files to public folder**:
-   - All CSV files are now in `frontend/public/data/`
-   - These are served as static assets by Vercel
+## ✅ Solution
 
-2. **Updated HealthcareDashboard**:
-   - Changed from `axios.get()` to `fetch()` for static files
-   - Removed axios dependency for CSV loading
-   - Updated CSV parsing to work with fetch response
+### Step 1: Update Vercel Project Settings
 
-3. **Updated vercel.json**:
-   - Added proper routing for `/data/*` paths
-   - Added CORS headers for CSV files
-   - Set correct Content-Type headers
+1. Go to https://vercel.com/dashboard
+2. Click on your **portfolio** project
+3. Go to **Settings** → **General**
+4. Scroll to **Root Directory**
+5. Click **Edit** and set it to: `frontend`
+6. Click **Save**
 
-## Files Changed
-- `frontend/public/data/*.csv` - All CSV files moved here
-- `frontend/src/components/HealthcareDashboard.jsx` - Updated to use fetch
-- `frontend/vercel.json` - Added CSV file routing
+### Step 2: Verify Build Settings
 
-## Next Steps
-1. Vercel will automatically redeploy when you push to GitHub
-2. The 401 error should be resolved
-3. All dashboards should load CSV data correctly
+In the same Settings page, verify:
+- **Framework Preset:** Vite
+- **Build Command:** `npm run build` (auto-detected)
+- **Output Directory:** `dist` (auto-detected)
+- **Install Command:** `npm install` (auto-detected)
 
-## Test Locally
-```bash
-cd frontend
-npm run build
-npm run preview
-# Visit http://localhost:4173/portfolio
-# Check browser console for any errors
-```
+### Step 3: Redeploy
+
+1. Go to **Deployments** tab
+2. Click **⋯** (three dots) on the latest deployment
+3. Click **Redeploy**
+4. Or push a new commit to trigger auto-deploy
+
+## 📝 Important Notes
+
+- **Root Directory MUST be `frontend`** - This is the #1 cause of blank pages
+- The `vercel.json` in root is for when Root Directory is NOT set
+- The `frontend/vercel.json` is used when Root Directory IS set to `frontend`
+
+## 🔍 Verify Deployment
+
+After redeploying, check:
+1. Build logs show successful build
+2. No errors in Vercel logs
+3. Browser console (F12) shows no errors
+4. Network tab shows assets loading (200 status)
+
+## 🐛 If Still Blank
+
+1. **Check Browser Console:**
+   - Open DevTools (F12)
+   - Look for red errors
+   - Check Network tab for failed requests
+
+2. **Check Vercel Logs:**
+   - Go to Deployments → Latest → Functions/Logs
+   - Look for build or runtime errors
+
+3. **Verify Files:**
+   - `frontend/dist/index.html` should exist after build
+   - `frontend/public/data/*.csv` files should be copied to dist
+
+4. **Test Locally:**
+   ```bash
+   cd frontend
+   npm run build
+   npm run preview
+   ```
+   Visit http://localhost:4173 - should work if Vercel config is correct
+
+## ✅ Current Configuration
+
+- ✅ Root `vercel.json` updated with correct rewrites
+- ✅ Frontend `vercel.json` has SPA routing
+- ✅ Error Boundary added for better debugging
+- ✅ Analytics component properly imported
+
+---
+
+**After setting Root Directory to `frontend` and redeploying, the site should work!**

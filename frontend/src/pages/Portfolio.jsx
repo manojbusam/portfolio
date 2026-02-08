@@ -12,10 +12,10 @@ function Portfolio() {
   const [activeDashboard, setActiveDashboard] = useState(dashboardId || 'healthcare');
 
   useEffect(() => {
-    if (dashboardId && dashboardId !== activeDashboard) {
+    if (dashboardId) {
       setActiveDashboard(dashboardId);
-    } else if (!dashboardId) {
-      // Redirect to default dashboard if no ID in URL
+    } else if (window.location.pathname === '/portfolio') {
+      // Only redirect if we're exactly on /portfolio
       navigate('/portfolio/healthcare', { replace: true });
     }
   }, [dashboardId, navigate]);

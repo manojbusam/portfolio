@@ -1,254 +1,306 @@
-# Healthcare Power BI Dashboard
+# Portfolio Website - Data Analytics Showcase
 
-A comprehensive Power BI dashboard solution for healthcare data analytics, including patient records, appointments, diagnoses, medications, and lab results.
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Setup Instructions](#setup-instructions)
-- [Data Structure](#data-structure)
-- [Dashboard Features](#dashboard-features)
-- [Files Included](#files-included)
-- [Usage Guide](#usage-guide)
+A professional portfolio website showcasing interactive Power BI dashboards and data analytics projects. Built with React and Node.js, featuring embedded Power BI reports for Healthcare, Finance, Retail, and Marketing analytics.
 
 ## 🎯 Overview
 
-This project provides a complete Power BI dashboard solution for healthcare analytics. It includes:
+This portfolio website demonstrates expertise in:
+- **Business Intelligence & Data Visualization** (Power BI, Tableau, DAX)
+- **Data Analytics & Engineering** (SQL, Python, Microsoft Fabric)
+- **Full-Stack Development** (React, Node.js, Express)
+- **Cloud Platforms** (Azure, AWS, GCP)
 
-- Sample healthcare data generator
-- Pre-built DAX measures for common healthcare metrics
-- Power Query transformation scripts
-- Comprehensive documentation
+The site features multiple interactive dashboards embedded from Power BI Service, showcasing real-world analytics projects across different industries.
 
-## 📦 Prerequisites
+## 🏗️ Architecture
 
-- **Power BI Desktop** (free download from [Microsoft](https://powerbi.microsoft.com/desktop/))
-- **Python 3.7+** (for data generation)
-- **pandas** and **numpy** Python libraries
+- **Frontend**: React 18 with Vite, React Router, Power BI JavaScript SDK
+- **Backend**: Node.js/Express with MSAL for Azure AD authentication
+- **Power BI**: Embedded reports using Power BI REST API
+- **Deployment**: Vercel (frontend) with serverless functions
 
-## 🚀 Setup Instructions
+## 📋 Prerequisites
 
-### Step 1: Generate Sample Data
+- **Node.js** (v18 or higher)
+- **npm** or **yarn**
+- **Power BI Pro or Premium** account (optional - for live dashboards)
+- **Azure AD App Registration** (optional - for Power BI embedding)
 
-1. Install required Python packages:
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd Portfolio
+```
+
+### 2. Install Dependencies
+
+**Option A: Install All at Once (Recommended)**
+```bash
+npm run install:all
+```
+
+**Option B: Install Separately**
+```bash
+# Root dependencies
+npm install
+
+# Backend dependencies
+cd backend
+npm install
+
+# Frontend dependencies
+cd ../frontend
+npm install
+```
+
+### 3. Configure Environment Variables (Optional)
+
+If you want to use live Power BI dashboards:
+
+1. Copy the example environment file:
    ```bash
-   pip install pandas numpy
+   cd backend
+   cp env.example .env
    ```
 
-2. Run the data generator script:
-   ```bash
-   python generate_healthcare_data.py
+2. Edit `.env` with your Azure AD credentials:
+   ```env
+   POWER_BI_CLIENT_ID=your-client-id-here
+   POWER_BI_CLIENT_SECRET=your-client-secret-here
+   POWER_BI_TENANT_ID=your-tenant-id-here
+   PORT=3001
    ```
 
-   This will create CSV files in the `data/` directory:
-   - `patients.csv` - Patient demographic information
-   - `appointments.csv` - Appointment records
-   - `diagnoses.csv` - Diagnosis records
-   - `medications.csv` - Medication prescriptions
-   - `lab_results.csv` - Laboratory test results
+   See `README_FULLSTACK.md` for detailed Azure AD setup instructions.
 
-### Step 2: Create Power BI Dashboard
+### 4. Start the Application
 
-1. **Open Power BI Desktop**
+**One Command (Recommended):**
+```bash
+# From the root directory
+npm start
+```
 
-2. **Import Data:**
-   - Click "Get Data" → "Text/CSV"
-   - Navigate to the `data/` folder
-   - Import all CSV files:
-     - `patients.csv`
-     - `appointments.csv`
-     - `diagnoses.csv`
-     - `medications.csv`
-     - `lab_results.csv`
+This starts both backend (port 3001) and frontend (port 3000) servers automatically!
 
-3. **Transform Data (Power Query):**
-   - For each table, click "Transform Data"
-   - Apply transformations from `PowerQuery_Transformations.txt`
-   - Key transformations:
-     - Add calculated columns (Age Group, Day of Week, etc.)
-     - Create Date Table for time intelligence
-     - Clean and standardize data types
+**Alternative - Manual Start:**
+```bash
+# Terminal 1 - Backend
+npm run backend
 
-4. **Create Relationships:**
-   - Go to "Model" view
-   - Create relationships between tables:
-     - `Patients[PatientID]` → `Appointments[PatientID]` (One-to-Many)
-     - `Appointments[AppointmentID]` → `Diagnoses[AppointmentID]` (One-to-Many)
-     - `Appointments[AppointmentID]` → `LabResults[AppointmentID]` (One-to-Many)
-     - `Diagnoses[DiagnosisID]` → `Medications[DiagnosisID]` (One-to-Many)
-     - `Date[Date]` → `Appointments[AppointmentDate]` (One-to-Many)
+# Terminal 2 - Frontend
+npm run frontend
+```
 
-5. **Add DAX Measures:**
-   - Go to "Data" view
-   - Create a new measure in the appropriate table
-   - Copy measures from `DAX_Measures.txt`
-   - Key measures to add:
-     - Total Appointments
-     - Completed Appointments
-     - No-Show Rate
-     - Total Revenue
-     - Average Appointment Cost
-     - Total Patients
-     - Active Patients (Last 90 Days)
-     - And many more...
+**Or use the start scripts:**
+```bash
+# Mac/Linux
+./start.sh
 
-6. **Build Visualizations:**
-   - Create visualizations on the report canvas
-   - Suggested dashboard layout:
-     - **KPI Cards:** Total Patients, Total Appointments, Total Revenue, No-Show Rate
-     - **Charts:** Appointments by Department, Appointments Over Time, Top Diagnoses
-     - **Tables:** Patient Demographics, Appointment Details
-     - **Filters:** Date Range, Department, Insurance Type
+# Windows
+start.bat
+```
 
-## 📊 Data Structure
+### 5. Access the Application
 
-### Patients Table
-- `PatientID` - Unique patient identifier
-- `FirstName`, `LastName` - Patient name
-- `Age`, `Gender` - Demographics
-- `BloodType` - Blood type
-- `InsuranceType` - Insurance category
-- `RegistrationDate` - Patient registration date
+Open your browser and navigate to:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001
 
-### Appointments Table
-- `AppointmentID` - Unique appointment identifier
-- `PatientID` - Foreign key to Patients
-- `Department` - Medical department
-- `AppointmentType` - Type of appointment
-- `AppointmentDate`, `AppointmentTime` - Date and time
-- `Duration` - Appointment duration (minutes)
-- `Status` - Appointment status (Completed, Cancelled, No-show, Scheduled)
-- `Cost` - Appointment cost
+## 📁 Project Structure
 
-### Diagnoses Table
-- `DiagnosisID` - Unique diagnosis identifier
-- `AppointmentID` - Foreign key to Appointments
-- `PatientID` - Foreign key to Patients
-- `Diagnosis` - Diagnosis name
-- `Severity` - Severity level (Mild, Moderate, Severe, Critical)
-- `DiagnosisDate` - Date of diagnosis
+```
+Portfolio/
+├── frontend/                 # React application
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── HealthcareDashboard.jsx
+│   │   │   ├── FinanceDashboard.jsx
+│   │   │   ├── RetailDashboard.jsx
+│   │   │   ├── MarketingDashboard.jsx
+│   │   │   └── PowerBIEmbed.jsx
+│   │   ├── pages/           # Page components
+│   │   │   ├── About.jsx    # Main portfolio page
+│   │   │   └── Portfolio.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── public/
+│   │   └── data/            # CSV data files
+│   ├── package.json
+│   └── vite.config.js
+├── backend/                  # Node.js/Express API
+│   ├── server.js            # Express server with Power BI API
+│   ├── package.json
+│   └── .env                 # Power BI credentials (not in git)
+├── data/                     # Healthcare CSV data files
+├── package.json             # Root package.json with scripts
+└── README.md                # This file
+```
 
-### Medications Table
-- `MedicationID` - Unique medication identifier
-- `PatientID` - Foreign key to Patients
-- `DiagnosisID` - Foreign key to Diagnoses
-- `MedicationName` - Name of medication
-- `Dosage` - Medication dosage
-- `Frequency` - Frequency of administration
-- `PrescriptionDate` - Date prescribed
+## 🎨 Features
 
-### Lab Results Table
-- `LabResultID` - Unique lab result identifier
-- `AppointmentID` - Foreign key to Appointments
-- `PatientID` - Foreign key to Patients
-- `TestName` - Name of lab test
-- `TestValue` - Test result value
-- `Unit` - Unit of measurement
-- `NormalRange` - Normal range for test
-- `ResultStatus` - Result status (Normal, High, Low, Abnormal)
-- `TestDate` - Date of test
+### Portfolio Pages
 
-## 🎨 Dashboard Feature
+- **About Page** (`/` or `/about`)
+  - Professional profile and introduction
+  - Experience timeline
+  - Technical skills showcase
+  - Live dashboard previews
+  - Contact information
 
-### Key Metrics (KPIs)
-- Total Patients
-- Total Appointments
-- Appointment Completion Rate
-- No-Show Rate
-- Total Revenue
-- Average Appointment Cost
-- Active Patients (Last 90 Days)
+- **Portfolio Page** (`/portfolio`)
+  - Interactive dashboard selector
+  - Embedded Power BI reports:
+    - 🏥 Healthcare Analytics
+    - 💰 Finance & Risk
+    - 📦 Retail & Supply Chain
+    - 📊 Marketing Analytics
 
-### Visualizations
-- **Appointment Trends:** Line chart showing appointments over time
-- **Department Analysis:** Bar chart of appointments by department
-- **Patient Demographics:** Pie charts for age groups, gender, insurance types
-- **Diagnosis Analysis:** Top diagnoses, severity distribution
-- **Lab Results:** Abnormal result rates, test trends
-- **Revenue Analysis:** Revenue by department, month-over-month growth
+### Dashboard Features
 
-### Filters & Slicers
-- Date Range
-- Department
-- Insurance Type
-- Appointment Status
-- Diagnosis Category
+- **Power BI Embedding**: Seamless integration with Power BI Service
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Interactive Navigation**: Easy switching between different dashboards
+- **Error Handling**: Graceful fallbacks for missing or unavailable dashboards
 
-## 📁 Files Included
+## 🔧 Development
 
-- `generate_healthcare_data.py` - Python script to generate sample healthcare data
-- `DAX_Measures.txt` - Pre-built DAX measures for healthcare metrics
-- `PowerQuery_Transformations.txt` - Power Query M scripts for data transformation
-- `README.md` - This documentation file
-- `data/` - Directory containing generated CSV files
+### Available Scripts
 
-## 💡 Usage Guide
+**Root Level:**
+- `npm run install:all` - Install all dependencies (root, backend, frontend)
+- `npm start` - Start both backend and frontend concurrently
+- `npm run dev` - Start both in development mode with hot reload
+- `npm run backend` - Start only the backend server
+- `npm run frontend` - Start only the frontend dev server
 
-### Customizing the Dashboard
+**Frontend:**
+- `npm run dev` - Start Vite dev server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
 
-1. **Modify Data Generation:**
-   - Edit `generate_healthcare_data.py` to adjust:
-     - Number of records
-     - Date ranges
-     - Custom departments or diagnoses
-     - Additional fields
+**Backend:**
+- `npm start` - Start Express server
+- `npm run dev` - Start with auto-reload (node --watch)
 
-2. **Add Custom Measures:**
-   - Create new DAX measures based on your specific requirements
-   - Reference existing measures for consistency
+### Backend API Endpoints
 
-3. **Create Custom Visuals:**
-   - Use Power BI's built-in visuals
-   - Import custom visuals from AppSource if needed
-   - Consider using:
-     - Gauge charts for KPIs
-     - Maps for geographic analysis
-     - Waterfall charts for revenue breakdown
+- `GET /api/health` - Health check
+- `GET /api/workspaces` - List all Power BI workspaces
+- `GET /api/reports?workspaceId={id}` - List reports in a workspace
+- `POST /api/embed-token` - Generate embed token for a report
+  ```json
+  {
+    "reportId": "report-guid",
+    "workspaceId": "workspace-guid"
+  }
+  ```
 
-### Best Practices
+### Demo Mode
 
-1. **Performance Optimization:**
-   - Use calculated columns sparingly (prefer measures)
-   - Create aggregations for large datasets
-   - Use DirectQuery for very large datasets
+If you don't have Power BI credentials set up, the backend includes demo endpoints:
+- `GET /api/demo/reports` - Mock reports list
+- `POST /api/demo/embed-token` - Mock embed token
 
-2. **Data Refresh:**
-   - Set up scheduled refreshes if using Power BI Service
-   - Consider incremental refresh for large datasets
+## 🚢 Deployment
 
-3. **Security:**
-   - Implement Row-Level Security (RLS) for sensitive healthcare data
-   - Use appropriate data classification labels
+### Vercel Deployment
 
-## 🔒 Data Privacy & Compliance
+The frontend is configured for Vercel deployment:
 
-**Important:** This is sample data for demonstration purposes. When working with real healthcare data:
+1. Connect your GitHub repository to Vercel
+2. Set build command: `cd frontend && npm install && npm run build`
+3. Set output directory: `frontend/dist`
+4. Add environment variables if needed
 
-- Ensure compliance with HIPAA regulations
-- Implement proper data anonymization
-- Use appropriate security measures
-- Follow your organization's data governance policies
+See `VERCEL_DEPLOYMENT_GUIDE.md` for detailed deployment instructions.
 
-## 📝 Notes
+### Environment Variables
 
-- The generated data is synthetic and for demonstration purposes only
-- Adjust date ranges in the Python script to match your needs
-- The DAX measures can be customized based on your specific requirements
-- Consider adding more tables (e.g., providers, facilities) as needed
+For production deployment, ensure these are set:
+- `POWER_BI_CLIENT_ID`
+- `POWER_BI_CLIENT_SECRET`
+- `POWER_BI_TENANT_ID`
+- `PORT` (optional, defaults to 3001)
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18** - UI framework
+- **Vite** - Build tool and dev server
+- **React Router** - Client-side routing
+- **Power BI JavaScript SDK** - Power BI embedding
+- **CSS3** - Styling
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express** - Web framework
+- **MSAL Node** - Azure AD authentication
+- **Axios** - HTTP client
+- **CORS** - Cross-origin resource sharing
+
+### Data & Analytics
+- **Power BI** - Business intelligence platform
+- **DAX** - Data analysis expressions
+- **SQL** - Database queries
+- **Python** - Data processing (see `generate_healthcare_data.py`)
+
+## 📚 Additional Documentation
+
+- `README_FULLSTACK.md` - Detailed Power BI embedding setup guide
+- `START_HERE.md` - Quick start guide
+- `VERCEL_DEPLOYMENT_GUIDE.md` - Deployment instructions
+- `QUICK_START.md` - Alternative quick start guide
+
+## 🐛 Troubleshooting
+
+### "Failed to generate embed token"
+- Verify your Service Principal has access to the Power BI workspace
+- Check that API permissions are granted and consented in Azure AD
+- Ensure the Workspace ID and Report ID are correct
+
+### "Failed to fetch reports"
+- Make sure the backend server is running on port 3001
+- Check your `.env` file has correct credentials
+- Verify network connectivity
+
+### CORS Errors
+- The backend is configured to allow requests from `localhost:3000`
+- If using a different port, update CORS settings in `backend/server.js`
+
+### Power BI Report Not Loading
+- Check browser console for errors
+- Verify the Power BI JavaScript SDK is loaded (check Network tab)
+- Ensure the embed token is valid (check expiry time)
+
+## 🔒 Security Notes
+
+- **Never commit** your `.env` file to version control
+- Keep your Azure AD client secret secure
+- Use environment variables for all sensitive data
+- Consider using Azure Key Vault for production deployments
+- Implement proper authentication for production use
+
+## 📝 License
+
+MIT License - feel free to use this project for your own purposes.
 
 ## 🤝 Contributing
 
-Feel free to extend this dashboard with:
-- Additional data tables
-- More sophisticated analytics
-- Custom visualizations
-- Advanced security features
+This is a personal portfolio project, but suggestions and improvements are welcome!
 
-## 📄 License
+## 📧 Contact
 
-This project is provided as-is for educational and demonstration purposes.
+**Vijayasri Chinta**
+- Email: chintavijayasri@outlook.com
+- LinkedIn: [vijayasri-chinta](https://www.linkedin.com/in/vijayasri-chinta/)
+- GitHub: [vijayasrichinta2609](https://github.com/vijayasrichinta2609?tab=repositories)
 
 ---
 
-**Happy Dashboard Building! 📊**
+**Built with ❤️ using React, Power BI, and modern web technologies**

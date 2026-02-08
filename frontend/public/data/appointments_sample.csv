@@ -1,0 +1,11 @@
+AppointmentID,PatientID,Department,AppointmentType,AppointmentDate,AppointmentTime,Duration,Status,Cost
+APT000001,PAT000001,Cardiology,Consultation,2024-01-15,09:00:00,30,Completed,250.00
+APT000002,PAT000002,Pediatrics,Check-up,2024-01-16,10:30:00,15,Completed,150.00
+APT000003,PAT000003,Orthopedics,Follow-up,2024-01-17,14:00:00,30,Completed,200.00
+APT000004,PAT000004,Emergency,Emergency,2024-01-18,08:15:00,60,Completed,450.00
+APT000005,PAT000005,Internal Medicine,Consultation,2024-01-19,11:00:00,45,Completed,300.00
+APT000006,PAT000001,Cardiology,Follow-up,2024-02-01,09:30:00,30,Completed,200.00
+APT000007,PAT000006,Dermatology,Consultation,2024-02-02,13:00:00,30,Completed,180.00
+APT000008,PAT000007,Neurology,Consultation,2024-02-03,10:00:00,45,Completed,350.00
+APT000009,PAT000002,Pediatrics,Check-up,2024-02-05,14:30:00,15,Completed,150.00
+APT000010,PAT000008,Surgery,Surgery,2024-02-06,08:00:00,90,Completed,1200.00

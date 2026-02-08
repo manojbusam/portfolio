@@ -1,0 +1,11 @@
+PatientID,FirstName,LastName,Age,Gender,BloodType,InsuranceType,RegistrationDate
+PAT000001,James,Smith,45,M,A+,Private,2022-01-15
+PAT000002,Mary,Johnson,32,F,O+,Medicare,2022-03-22
+PAT000003,John,Williams,58,M,B+,Private,2021-11-08
+PAT000004,Patricia,Brown,29,F,AB-,Medicaid,2023-05-12
+PAT000005,Robert,Jones,67,M,O-,Medicare,2021-08-30
+PAT000006,Jennifer,Garcia,41,F,A-,Private,2022-09-14
+PAT000007,Michael,Miller,53,M,B-,Private,2022-02-28
+PAT000008,Linda,Davis,36,F,O+,Medicaid,2023-01-05
+PAT000009,William,Rodriguez,62,M,A+,Medicare,2021-12-18
+PAT000010,Elizabeth,Martinez,48,F,B+,Private,2022-07-03

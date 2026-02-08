@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './HealthcareDashboard.css';
 
 function HealthcareDashboard() {
@@ -31,16 +30,18 @@ function HealthcareDashboard() {
 
   const loadData = async () => {
     try {
+      // Use fetch for static files in Vercel deployment
       const [patientsRes, appointmentsRes, diagnosesRes, medicationsRes, labRes] = await Promise.all([
-        axios.get('/data/patients.csv'),
-        axios.get('/data/appointments.csv'),
-        axios.get('/data/diagnoses.csv'),
-        axios.get('/data/medications.csv'),
-        axios.get('/data/lab_results.csv')
+        fetch('/data/patients.csv').then(r => r.text()),
+        fetch('/data/appointments.csv').then(r => r.text()),
+        fetch('/data/diagnoses.csv').then(r => r.text()),
+        fetch('/data/medications.csv').then(r => r.text()),
+        fetch('/data/lab_results.csv').then(r => r.text())
       ]);
 
       const parseCSV = (csvText) => {
         const lines = csvText.split('\n').filter(line => line.trim());
+        if (lines.length === 0) return [];
         const headers = lines[0].split(',');
         return lines.slice(1).map(line => {
           const values = line.split(',');
@@ -51,11 +52,11 @@ function HealthcareDashboard() {
         });
       };
 
-      const patients = parseCSV(patientsRes.data);
-      const appointments = parseCSV(appointmentsRes.data);
-      const diagnoses = parseCSV(diagnosesRes.data);
-      const medications = parseCSV(medicationsRes.data);
-      const labResults = parseCSV(labRes.data);
+      const patients = parseCSV(patientsRes);
+      const appointments = parseCSV(appointmentsRes);
+      const diagnoses = parseCSV(diagnosesRes);
+      const medications = parseCSV(medicationsRes);
+      const labResults = parseCSV(labRes);
 
       setData({ patients, appointments, diagnoses, medications, labResults });
 

@@ -1,0 +1,61 @@
+AppointmentID,PatientID,Department,AppointmentType,AppointmentDate,AppointmentTime,Duration,Status,Cost
+APT000001,PAT000001,Cardiology,Consultation,2024-01-15,09:00:00,30,Completed,250.00
+APT000002,PAT000002,Pediatrics,Check-up,2024-01-16,10:30:00,15,Completed,150.00
+APT000003,PAT000003,Orthopedics,Follow-up,2024-01-17,14:00:00,30,Completed,200.00
+APT000004,PAT000004,Emergency,Emergency,2024-01-18,08:15:00,60,Completed,450.00
+APT000005,PAT000005,Internal Medicine,Consultation,2024-01-19,11:00:00,45,Completed,300.00
+APT000006,PAT000001,Cardiology,Follow-up,2024-02-01,09:30:00,30,Completed,200.00
+APT000007,PAT000006,Dermatology,Consultation,2024-02-02,13:00:00,30,Completed,180.00
+APT000008,PAT000007,Neurology,Consultation,2024-02-03,10:00:00,45,Completed,350.00
+APT000009,PAT000002,Pediatrics,Check-up,2024-02-05,14:30:00,15,Completed,150.00
+APT000010,PAT000008,Surgery,Surgery,2024-02-06,08:00:00,90,Completed,1200.00
+APT000011,PAT000009,Cardiology,Consultation,2024-02-07,11:15:00,30,Completed,250.00
+APT000012,PAT000010,Oncology,Consultation,2024-02-08,09:00:00,60,Completed,500.00
+APT000013,PAT000011,Internal Medicine,Check-up,2024-02-09,14:00:00,30,Completed,200.00
+APT000014,PAT000003,Orthopedics,Follow-up,2024-02-12,10:30:00,30,Completed,200.00
+APT000015,PAT000012,Cardiology,Consultation,2024-02-13,08:45:00,45,Completed,300.00
+APT000016,PAT000013,Emergency,Emergency,2024-02-14,16:00:00,60,Completed,450.00
+APT000017,PAT000014,Dermatology,Consultation,2024-02-15,13:30:00,30,Completed,180.00
+APT000018,PAT000015,Pediatrics,Check-up,2024-02-16,10:00:00,15,Completed,150.00
+APT000019,PAT000016,Neurology,Follow-up,2024-02-19,11:00:00,30,Completed,250.00
+APT000020,PAT000017,Surgery,Surgery,2024-02-20,07:30:00,120,Completed,1500.00
+APT000021,PAT000018,Internal Medicine,Consultation,2024-02-21,14:15:00,45,Completed,300.00
+APT000022,PAT000004,Emergency,Emergency,2024-02-22,20:00:00,60,Completed,450.00
+APT000023,PAT000019,Cardiology,Follow-up,2024-02-23,09:30:00,30,Completed,200.00
+APT000024,PAT000020,Oncology,Consultation,2024-02-26,10:00:00,60,Completed,500.00
+APT000025,PAT000021,Orthopedics,Consultation,2024-02-27,13:00:00,45,Completed,350.00
+APT000026,PAT000022,Pediatrics,Check-up,2024-02-28,11:30:00,15,Completed,150.00
+APT000027,PAT000023,Dermatology,Follow-up,2024-03-01,14:00:00,30,Completed,180.00
+APT000028,PAT000024,Internal Medicine,Check-up,2024-03-04,09:00:00,30,Completed,200.00
+APT000029,PAT000025,Cardiology,Consultation,2024-03-05,10:45:00,45,Completed,300.00
+APT000030,PAT000026,Neurology,Consultation,2024-03-06,13:30:00,45,Completed,350.00
+APT000031,PAT000027,Emergency,Emergency,2024-03-07,18:00:00,60,Completed,450.00
+APT000032,PAT000028,Pediatrics,Check-up,2024-03-08,10:00:00,15,Completed,150.00
+APT000033,PAT000029,Surgery,Surgery,2024-03-11,08:00:00,90,Completed,1200.00
+APT000034,PAT000030,Cardiology,Follow-up,2024-03-12,11:00:00,30,Completed,200.00
+APT000035,PAT000031,Orthopedics,Consultation,2024-03-13,14:15:00,45,Completed,350.00
+APT000036,PAT000032,Internal Medicine,Check-up,2024-03-14,09:30:00,30,Completed,200.00
+APT000037,PAT000033,Oncology,Consultation,2024-03-15,10:00:00,60,Completed,500.00
+APT000038,PAT000034,Dermatology,Consultation,2024-03-18,13:00:00,30,Completed,180.00
+APT000039,PAT000035,Cardiology,Consultation,2024-03-19,09:15:00,45,Completed,300.00
+APT000040,PAT000036,Neurology,Follow-up,2024-03-20,11:30:00,30,Completed,250.00
+APT000041,PAT000037,Emergency,Emergency,2024-03-21,19:30:00,60,Completed,450.00
+APT000042,PAT000038,Pediatrics,Check-up,2024-03-22,10:30:00,15,Completed,150.00
+APT000043,PAT000039,Internal Medicine,Consultation,2024-03-25,14:00:00,45,Completed,300.00
+APT000044,PAT000040,Cardiology,Consultation,2024-03-26,09:00:00,30,Completed,250.00
+APT000045,PAT000001,Cardiology,Follow-up,2024-03-27,10:45:00,30,Completed,200.00
+APT000046,PAT000005,Internal Medicine,Check-up,2024-03-28,11:00:00,30,Completed,200.00
+APT000047,PAT000010,Oncology,Follow-up,2024-04-01,09:30:00,60,Completed,500.00
+APT000048,PAT000015,Pediatrics,Check-up,2024-04-02,14:00:00,15,Completed,150.00
+APT000049,PAT000020,Oncology,Follow-up,2024-04-03,10:00:00,60,Completed,500.00
+APT000050,PAT000025,Cardiology,Follow-up,2024-04-04,11:15:00,30,Completed,200.00
+APT000051,PAT000002,Pediatrics,Check-up,2024-04-05,09:00:00,15,Completed,150.00
+APT000052,PAT000007,Neurology,Follow-up,2024-04-08,13:00:00,30,Completed,250.00
+APT000053,PAT000012,Cardiology,Follow-up,2024-04-09,10:30:00,30,Completed,200.00
+APT000054,PAT000017,Surgery,Follow-up,2024-04-10,08:00:00,30,Completed,300.00
+APT000055,PAT000022,Pediatrics,Check-up,2024-04-11,11:00:00,15,Completed,150.00
+APT000056,PAT000027,Emergency,Emergency,2024-04-12,17:00:00,60,Cancelled,0.00
+APT000057,PAT000032,Internal Medicine,Check-up,2024-04-15,14:30:00,30,No-show,0.00
+APT000058,PAT000037,Cardiology,Consultation,2024-04-16,09:00:00,45,Cancelled,0.00
+APT000059,PAT000003,Orthopedics,Follow-up,2024-04-17,10:00:00,30,Completed,200.00
+APT000060,PAT000008,Surgery,Follow-up,2024-04-18,08:30:00,30,Completed,300.00

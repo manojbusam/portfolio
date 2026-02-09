@@ -175,13 +175,17 @@
 }
 
 .value-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
 }
 
 .value-card {
-  padding: 24px;
+  flex: 1;
+  min-width: 180px;
+  padding: 20px;
   background: #f8fafc;
   border-radius: 10px;
   border-left: 4px solid #667eea;
@@ -194,21 +198,21 @@
 }
 
 .value-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
+  font-size: 32px;
+  margin-bottom: 12px;
 }
 
 .value-card h3 {
-  margin: 0 0 12px 0;
-  font-size: 20px;
+  margin: 0 0 8px 0;
+  font-size: 16px;
   font-weight: 600;
   color: #1e293b;
 }
 
 .value-card p {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.5;
   color: #64748b;
 }
 
@@ -566,7 +570,11 @@
   }
 
   .value-cards {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+  
+  .value-card {
+    min-width: 100%;
   }
 
   .tech-grid {

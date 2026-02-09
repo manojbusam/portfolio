@@ -242,7 +242,7 @@ function About() {
               <div className="exp-header">
                 <h3>Business Analyst, Retail BI</h3>
                 <span className="exp-company">Deloitte</span>
-                <span className="exp-date">Jan 2025 - Present</span>
+                <span className="exp-date">Jan 2024 - Present</span>
               </div>
               <p className="exp-location">Nashville Metropolitan Area · Contract</p>
               <div className="exp-tech-stack">
@@ -287,7 +287,7 @@ function About() {
           <div className="education-item">
             <h3>Master's degree, Computer Science</h3>
             <p className="edu-school">North Carolina Agricultural and Technical State University</p>
-            <p className="edu-date">Jan 2023 - Dec 2024</p>
+            <p className="edu-date">Jan 2023 - Dec 2023</p>
           </div>
           <div className="education-item">
             <h3>Bachelors</h3>
